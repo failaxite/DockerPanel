@@ -53,6 +53,52 @@ $dockerContainers = json_decode($dockerContainers);
         .docker-table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        .running-state {
+            position: relative;
+            background-color: #fff;
+            color: #fff;
+            border-radius: 200px;
+            margin-top: 15px;
+        }
+
+        .running-state::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50; 
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 42;
+        }
+
+
+        .offline-state {
+            position: relative;
+            padding: 5px 10px;
+            background-color: #fff;
+            color: #fff;
+            border-radius: 50%;
+        }
+
+        .offline-state::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: #FF5733;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 42;
+        }
+
     </style>
 </head>
 <body>
@@ -75,7 +121,7 @@ $dockerContainers = json_decode($dockerContainers);
                         <td><?php echo $container->Names[0]; ?></td>
                         <td><?php echo $container->Id; ?></td>
                         <td><?php echo $container->Image; ?></td>
-                        <td><?php echo $container->State; ?></td>
+                        <td class="<?php echo ($container->State === 'running') ? 'running-state' : 'offline-state'; ?>"></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
