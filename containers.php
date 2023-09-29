@@ -13,6 +13,7 @@ $dockerContainers = json_decode($dockerContainers);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Liste des conteneurs Docker</title>
     <style>
         * {
@@ -126,6 +127,25 @@ $dockerContainers = json_decode($dockerContainers);
             background-color: #FFA500;
         }
 
+        .stop-icon {
+            color: red;
+        }
+
+        /* Style pour l'icône de redémarrage (orange) */
+        .restart-icon {
+            color: orange;
+        }
+
+        /* Style pour l'icône de démarrage (vert) */
+        .start-icon {
+            color: green;
+        }
+
+        /* Style pour l'icône de suppression (rouge) */
+        .delete-icon {
+            color: red;
+        }
+
     </style>
 </head>
 <body>
@@ -153,12 +173,12 @@ $dockerContainers = json_decode($dockerContainers);
                     <td>
                         <!-- Boutons pour gérer le conteneur -->
                         <?php if ($container->State === 'running') : ?>
-                            <a href="stop_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur arrêté avec succès', 'error')">Arrêter</a>
-                            <a href="restart_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur redémarré avec succès', 'warning')">Redémarrer</a>
+                            <a href="stop_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur arrêté avec succès', 'error')"><i class="fas fa-stop-circle stop-icon"></i></a>
+                            <a href="restart_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur redémarré avec succès', 'warning')"><i class="fas fa-sync-alt restart-icon"></i></a>
                         <?php else : ?>
-                            <a href="start_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur démarré avec succès', 'success')">Démarrer</a>
+                            <a href="start_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur démarré avec succès', 'success')"><i class="fas fa-play-circle start-icon"></i></a>
                         <?php endif; ?>
-                        <a href="delete_container.php?id=<?php echo $container->Id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce conteneur ?'); showMessage('Conteneur supprimé avec succès', 'error')">Supprimer</a>
+                        <a href="delete_container.php?id=<?php echo $container->Id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce conteneur ?'); showMessage('Conteneur supprimé avec succès', 'error')"><i class="fas fa-trash-alt delete-icon"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
