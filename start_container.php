@@ -25,4 +25,7 @@ try {
 } catch (Exception $e) {
     echo "Une erreur s'est produite lors de la requête HTTP : " . $e->getMessage();
 }
+
+header("Location: containers.php");
+exit;
 ?>

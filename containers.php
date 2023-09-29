@@ -99,6 +99,29 @@ $dockerContainers = json_decode($dockerContainers);
             z-index: 42;
         }
 
+        .action-bubble {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            background-color: #4CAF50; /* Fond vert */
+            z-index: 9999;
+            margin-top: 25px;
+        }
+
+        /* Style des bulles d'information de succès */
+        .success-bubble {
+            background-color: #4CAF50;
+        }
+
+        /* Style des bulles d'information d'erreur */
+        .error-bubble {
+            background-color: #FF5733;
+        }
+
     </style>
 </head>
 <body>
@@ -126,18 +149,30 @@ $dockerContainers = json_decode($dockerContainers);
                     <td>
                         <!-- Boutons pour gérer le conteneur -->
                         <?php if ($container->State === 'running') : ?>
-                            <a href="stop_container.php?id=<?php echo $container->Id; ?>">Arrêter</a>
-                            <a href="restart_container.php?id=<?php echo $container->Id; ?>">Redémarrer</a>
+                            <a href="stop_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur arrêté avec succès', 'error')">Arrêter</a>
+                            <a href="restart_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur redémarré avec succès', 'warning')">Redémarrer</a>
                         <?php else : ?>
-                            <a href="start_container.php?id=<?php echo $container->Id; ?>">Démarrer</a>
+                            <a href="start_container.php?id=<?php echo $container->Id; ?>" onclick="showMessage('Conteneur démarré avec succès', 'success')">Démarrer</a>
                         <?php endif; ?>
-                        <a href="delete_container.php?id=<?php echo $container->Id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce conteneur ?')">Supprimer</a>
+                        <a href="delete_container.php?id=<?php echo $container->Id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce conteneur ?'); showMessage('Conteneur supprimé avec succès', 'error')">Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
+
+<script>
+    function showMessage(message, type) {
+        var bubble = document.createElement("div");
+        bubble.className = "action-bubble " + type + "-bubble";
+        bubble.textContent = message;
+        document.body.appendChild(bubble);
+        setTimeout(function() {
+            bubble.style.display = "none";
+        }, 15000); // Masquer la bulle après 5 secondes
+    }
+</script>
 </body>
 </html>
 
