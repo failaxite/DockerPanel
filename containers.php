@@ -6,6 +6,7 @@ $dockerContainers = file_get_contents($dockerApiUrl . $containerEndpoint);
 $dockerContainers = json_decode($dockerContainers);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,29 +38,49 @@ $dockerContainers = json_decode($dockerContainers);
             background-color: #fff;
             border: 1px solid #ccc;
         }
+
+        .docker-table th, .docker-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .docker-table th {
+            background-color: #0696D7;
+            color: #fff;
+        }
+
+        .docker-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
-    <h1>Liste des conteneurs Docker :</h1>
-    <table class="docker-table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>ID</th>
-                <th>Image</th>
-                <th>État</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($dockerContainers as $container) : ?>
+    <?php include 'templates/navbar.php';?>
+
+    <div class="content">
+        <h1>Liste des conteneurs Docker :</h1>
+        <table class="docker-table">
+            <thead>
                 <tr>
-                    <td><?php echo $container->Names[0]; ?></td>
-                    <td><?php echo $container->Id; ?></td>
-                    <td><?php echo $container->Image; ?></td>
-                    <td><?php echo $container->State; ?></td>
+                    <th>Nom</th>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>État</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($dockerContainers as $container) : ?>
+                    <tr>
+                        <td><?php echo $container->Names[0]; ?></td>
+                        <td><?php echo $container->Id; ?></td>
+                        <td><?php echo $container->Image; ?></td>
+                        <td><?php echo $container->State; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+
