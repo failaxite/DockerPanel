@@ -113,13 +113,17 @@ $dockerContainers = json_decode($dockerContainers);
         }
 
         /* Style des bulles d'information de succès */
-        .success-bubble {
+        .success {
             background-color: #4CAF50;
         }
 
         /* Style des bulles d'information d'erreur */
         .error-bubble {
             background-color: #FF5733;
+        }
+
+        .warning-bubble {
+            background-color: #FFA500;
         }
 
     </style>
