@@ -146,10 +146,32 @@ $dockerContainers = json_decode($dockerContainers);
             color: red;
         }
 
+        /* Ajoutez ces styles à votre fichier CSS */
+
+        .add-container-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0696D7;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .add-container-button:hover {
+            background-color: #0577b3;
+        }
+
+
     </style>
 </head>
 <body>
     <?php include 'templates/navbar.php';?>
+
+    <a href="adding_container.php" class="add-container-button">Ajouter un conteneur</a>
 
     <div class="content">
     <h1>Liste des conteneurs Docker :</h1>
@@ -196,6 +218,7 @@ $dockerContainers = json_decode($dockerContainers);
             bubble.style.display = "none";
         }, 15000); // Masquer la bulle après 5 secondes
     }
+
 </script>
 </body>
 </html>
