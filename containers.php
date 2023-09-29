@@ -118,7 +118,7 @@ $dockerContainers = json_decode($dockerContainers);
             <tbody>
                 <?php foreach ($dockerContainers as $container) : ?>
                     <tr>
-                        <td><?php echo $container->Names[0]; ?></td>
+                        <td><a href="container_details.php?id=<?php echo $container->Id; ?>"><?php echo $container->Names[0]; ?></a></td>
                         <td><?php echo $container->Id; ?></td>
                         <td><?php echo $container->Image; ?></td>
                         <td class="<?php echo ($container->State === 'running') ? 'running-state' : 'offline-state'; ?>"></td>
