@@ -7,9 +7,8 @@
 </head>
 <body>
     <?php include 'templates/navbar.php';?> 
-    
+
     <div class="content">
-        <!-- Votre contenu de site web irait ici -->
     </div>
 </body>
 </html>

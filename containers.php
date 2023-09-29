@@ -105,28 +105,39 @@ $dockerContainers = json_decode($dockerContainers);
     <?php include 'templates/navbar.php';?>
 
     <div class="content">
-        <h1>Liste des conteneurs Docker :</h1>
-        <table class="docker-table">
-            <thead>
+    <h1>Liste des conteneurs Docker :</h1>
+    <table class="docker-table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>ID</th>
+                <th>Image</th>
+                <th>État</th>
+                <th>Actions</th> <!-- Ajout de la colonne Actions -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($dockerContainers as $container) : ?>
                 <tr>
-                    <th>Nom</th>
-                    <th>ID</th>
-                    <th>Image</th>
-                    <th>État</th>
+                    <td><a href="container_details.php?id=<?php echo $container->Id; ?>"><?php echo $container->Names[0]; ?></a></td>
+                    <td><?php echo $container->Id; ?></td>
+                    <td><?php echo $container->Image; ?></td>
+                    <td class="<?php echo ($container->State === 'running') ? 'running-state' : 'offline-state'; ?>"></td>
+                    <td>
+                        <!-- Boutons pour gérer le conteneur -->
+                        <?php if ($container->State === 'running') : ?>
+                            <a href="stop_container.php?id=<?php echo $container->Id; ?>">Arrêter</a>
+                            <a href="restart_container.php?id=<?php echo $container->Id; ?>">Redémarrer</a>
+                        <?php else : ?>
+                            <a href="start_container.php?id=<?php echo $container->Id; ?>">Démarrer</a>
+                        <?php endif; ?>
+                        <a href="delete_container.php?id=<?php echo $container->Id; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce conteneur ?')">Supprimer</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($dockerContainers as $container) : ?>
-                    <tr>
-                        <td><a href="container_details.php?id=<?php echo $container->Id; ?>"><?php echo $container->Names[0]; ?></a></td>
-                        <td><?php echo $container->Id; ?></td>
-                        <td><?php echo $container->Image; ?></td>
-                        <td class="<?php echo ($container->State === 'running') ? 'running-state' : 'offline-state'; ?>"></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
 
